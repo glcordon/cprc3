@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Vendor;
+use Gate;
+use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
+
+class StoreVendorRequest extends FormRequest
+{
+    public function authorize()
+    {
+        abort_if(Gate::denies('vendor_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return true;
+    }
+
+    public function rules()
+    {
+        return [
+            'vendor_name'  => [
+                'required',
+            ],
+            'vendor_phone' => [
+                'required',
+            ],
+            'services.*'   => [
+                'integer',
+            ],
+            'services'     => [
+                'required',
+                'array',
+            ],
+        ];
+    }
+}

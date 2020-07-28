@@ -387,11 +387,9 @@
 @endpush
 
 @endsection
+
+
 @section('scripts')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>  
-
-
 @parent
 <script>
     $(function () {

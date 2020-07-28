@@ -43,7 +43,13 @@
             </div>
             <div class="form-group">
                 <label class="required" for="service_type">{{ trans('cruds.service.fields.service_type') }}</label>
-                <input class="form-control {{ $errors->has('service_type') ? 'is-invalid' : '' }}" type="text" name="service_type" id="service_type" value="{{ old('service_type', '') }}" required>
+                {{-- <input class="form-control {{ $errors->has('service_type') ? 'is-invalid' : '' }}" type="text" name="service_type" id="service_type" value="{{ old('service_type', '') }}" required> --}}
+                <select class="form-control {{ $errors->has('service_type') ? 'is-invalid' : '' }}" name="service_type" id="">
+                    <option value="">--Select One--</option>
+                    <option value="contract" {{ old('service_type') == 'contract' ? 'selected' : '' }}>Contract</option>
+                    <option value="supplies" {{ old('service_type') == 'supplies' ? 'selected' : '' }}>Supplies</option>
+                    <option value="other" {{ old('service_type') == 'other' ? 'selected' : '' }}>Other</option>
+                </select>
                 @if($errors->has('service_type'))
                     <div class="invalid-feedback">
                         {{ $errors->first('service_type') }}

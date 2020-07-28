@@ -117,7 +117,7 @@ class ClientController extends Controller
             $client->services()->attach($request->services);
             
 
-        return redirect('/client/contact/'.$client->id);
+            return redirect('/client/'.$client->id.'/show/');
         
     }
 
@@ -215,7 +215,7 @@ class ClientController extends Controller
             $client->services()->sync($request->services);
             
 
-            return redirect('/client/contact/'.$client->id);
+            return redirect('/client/'.$client->id.'/show/');
     }
 
     /**

@@ -491,8 +491,10 @@
             var token = "{{ @csrf_token() }}";
             var client_id = $('#client_id').val();
             var service_id = $('#service_id').val();
-            var note_date = $('#note_date').val();
+            var note_date = formatDate($('#note_date').val());
             var start_time = $('#start_time').val();
+            console.log(note_date)
+            console.log(start_time)
             var duration = $('#duration').val();
             if(note == '' || title == '' || start_time == '' || duration == '')
             {
@@ -512,7 +514,19 @@
                  // alert( "Data Saved: ");
                // });
         });
-
+        function formatDate(date) {
+          var d = new Date(date),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+      
+          if (month.length < 2) 
+              month = '0' + month;
+          if (day.length < 2) 
+              day = '0' + day;
+      
+          return [year, month, day].join('-');
+      }
         $('#saveServices').on('click', function(e){
             e.preventDefault();
             var parentModal = $(this).parent().parent()

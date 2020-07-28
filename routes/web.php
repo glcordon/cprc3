@@ -73,6 +73,7 @@ Route::group(['prefix' => 'client',  'middleware' => ['auth']], function () {
         // }
     });
 
+// Route::post('/add-note', 'NoteController@store')->name('note.add');
 Route::post('/add-note', 'NoteController@store')->name('note.add');
 Route::post('/add-service', 'ClientController@addService');
 Route::get('/report-generate', 'ReportController@index')->name('pdf');

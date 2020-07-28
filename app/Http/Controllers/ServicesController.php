@@ -40,16 +40,8 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $hr = (int) $request['hr'];
-        if($request['am_pm'] == "pm")
-        {
-            if($hr !== 12)
-            {
-               $hr += 12; 
-            }
-            
-        }
-        $note_date = Carbon::parse($request['note_date']. ' '.$hr.':'.$request['min'].":00 ", 'America/Toronto');
+
+        $note_date = Carbon::parse($request['note_date'].''.$request['start_time'], 'America/Toronto');
         $type = $request['type'];
         $note = '<h2>'. $request['title'] . '</h2>' . $request['note'];
         $client_id = $request['client_id'];
@@ -61,7 +53,7 @@ class NoteController extends Controller
         $new_note->client_id = $client_id;
         $new_note->service_id = $request['service_id'];
         $new_note->save();
-        echo $request->all();
+        return $request->all();
     }
 
     /**

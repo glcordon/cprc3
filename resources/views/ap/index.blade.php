@@ -42,14 +42,25 @@ No Records for Selected Month....
 <h4>{{ $client['first_name'] }}, {{ $client['last_name'] }}</h4>
 <table class="table table-sm table-striped">
 @foreach($client['services'] as $cs)
-    
         <tr>
-            <td style="width:30%">{{ $cs['service_name'] }}
+           
+            <td style="width:15%">{{ $cs['service_name'] }}
                 @if($cs['pivot']['file_url'])
                     <a href="{{ '/get-file/'.$cs['pivot']['client_id'].'/'.$cs['pivot']['file_url'] }}"><i class="fas fa-file-export"></i></a> 
                 @endif
             </td>
-            <td style="width:25%"><label for="">$</label>
+            <td style="width:25%">
+                @if($cs['services_vendors'])
+                <select name="vendor" id="vendor-id"  class="w-100 p-1 border-dark" >
+                    <option value="">Selet Vendor</option>
+                    @foreach ( $cs['services_vendors'] as $vendor )
+                        <option value="{{ $vendor['id'] }}" {{ $cs['pivot']['vendor_id'] == $vendor['id'] ? 'selected' : '' }}>{{ $vendor['vendor_name'] }}</option>
+                    @endforeach
+
+                </select>
+                @endif
+            </td>
+            <td style="width:15%"><label for="">$</label>
                 <input type="text" name="authorized_price" id="authorized_price" value="{{ $cs['pivot']['authorized_price'] ?? '0.00'}}" aria-describedby="helpId" placeholder="">
             </td>
             <td style="width:30%"><label for="">Date Auth.</label>
@@ -75,6 +86,7 @@ No Records for Selected Month....
         $(document).on('click','#updateClient', function(){
             let pivot_id = $(this).attr('data-id')
             let service_id = $(this).attr('service-id')
+            let vendor_id = $(this).parent().parent().find('#vendor-id').val();
             var authorized_price = $(this).parent().parent().find('#authorized_price').val()
             var date_authorized = $(this).parent().parent().find('#date_authorized').val()
             var token = "{{ @csrf_token() }}"
@@ -82,6 +94,7 @@ No Records for Selected Month....
                 _token:token,
                 pivot_id: pivot_id,
                 service_id: service_id,
+                vendor_id: vendor_id,
                 authorized_price:authorized_price,
                 date_authorized:date_authorized,
             })

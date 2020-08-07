@@ -28,6 +28,9 @@ class Service extends Model
         'updated_at',
         'deleted_at',
     ];
+    protected $with = [
+        'servicesVendors'
+    ];
 
     protected function serializeDate(DateTimeInterface $date)
     {

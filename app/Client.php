@@ -27,8 +27,8 @@ class Client extends Model
     }
     public function services()
     {
-        return $this->belongsToMany('App\Services', 'client_service', 'client_id', 'service_id')->withTimestamps()
-            ->withPivot(['id','created_at', 'updated_at', 'notes', 'date_authorized', 'authorized_price', 'file_url']);
+        return $this->belongsToMany('App\Service', 'client_service', 'client_id', 'service_id')->withTimestamps()
+            ->withPivot(['id','created_at', 'updated_at', 'notes', 'date_authorized', 'authorized_price', 'file_url', 'vendor_id']);
     }
     public function servicesMonth($service)
     {

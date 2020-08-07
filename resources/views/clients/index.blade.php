@@ -19,7 +19,7 @@
        </div>
             <div class="row">
                 <div class="col-12" style="text-align:right">
-                    <a href="/client">View All Active<a> | <a href="/client/inactive">View all Inactive Clients</a>
+                    {{--  <a href="/client">View All Active<a> | <a href="/client/inactive">View all Inactive Clients</a>  --}}
                 </div>
             <div class="col-12">
                 <table class="table table-bordered table-striped table-hover datatable datatable-User dataTable no-footer" role="grid" style="margin-left: 0px; width: 1082px;">                            <thead>
@@ -47,7 +47,7 @@
                                         <td>
                                             {{-- {{ dump($client->services) }} --}}
                                             @if(isset($client->services))
-                                                @foreach ($client->services as $service)
+                                                @foreach ($client->services->unique() as $service)
                                                     <small><em>{{ $service->service_name }}</em></small><br />
                                                 @endforeach
                                             @endif

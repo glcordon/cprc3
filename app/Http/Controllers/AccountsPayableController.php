@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Client;
 use App\ClientService;
 use App\Service;
+use App\Vendor;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,6 +20,7 @@ class AccountsPayableController extends Controller
      */
     public function index(Request $request)
     {
+
         $thisDate = Carbon::now()->month;
         if($request->searchMonth)
         {
@@ -28,6 +30,7 @@ class AccountsPayableController extends Controller
                 $query->whereMonth('date_authorized','=', $thisDate)->whereYear('date_authorized', '=', Carbon::now()->year);
             })->with('services')->get();
         $clientData = $clients->map(function($x) use($thisDate){
+            
             $thisService =  collect($x->services->toArray())->filter(function($y) use($thisDate){
                 return Carbon::parse($y['pivot']['date_authorized'])->month == $thisDate;
             });
@@ -63,6 +66,7 @@ class AccountsPayableController extends Controller
     {
         $client_service =  ClientService::find($request->pivot_id);
         $client_service->date_authorized = $request->date_authorized;
+        $client_service->vendor_id = $request->vendor_id;
         $client_service->authorized_price = $request->authorized_price;
         $client_service->save();
         // --- couldnt get the  sync to work right so I just used the id to update the model directly -- //
